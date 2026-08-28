@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getCurrentUserProfile, updateProfile } from "@/lib/actions/profile";
 import { createClient } from "@/lib/supabase/client";
+import Image from "next/image";
 
 export default function EditProfilePage() {
   const router = useRouter();
@@ -18,6 +19,10 @@ export default function EditProfilePage() {
   const [bio, setBio] = useState("");
   const [school, setSchool] = useState("");
   const [program, setProgram] = useState("");
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [bannerFile, setBannerFile] = useState(null);
+  const [bannerPreview, setBannerPreview] = useState(null);
 
   useEffect(() => {
     loadProfile();
@@ -48,7 +53,37 @@ export default function EditProfilePage() {
     setBio(result.profile.bio || "");
     setSchool(result.profile.school || "");
     setProgram(result.profile.program || "");
+    
+    // Set avatar preview if exists
+    if (result.profile.avatar_url) {
+      setAvatarPreview(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${result.profile.avatar_url}`);
+    }
+    
     setLoading(false);
+  }
+
+  function handleAvatarChange(e) {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setAvatarPreview(event.target?.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function handleBannerChange(e) {
+    const file = e.target.files?.[0];
+    if (file) {
+      setBannerFile(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setBannerPreview(event.target?.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   async function handleSubmit(e) {
@@ -62,6 +97,13 @@ export default function EditProfilePage() {
     formData.append("bio", bio);
     formData.append("school", school);
     formData.append("program", program);
+    
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+    if (bannerFile) {
+      formData.append("banner", bannerFile);
+    }
 
     const result = await updateProfile(formData);
 
@@ -105,6 +147,52 @@ export default function EditProfilePage() {
             Profile updated! Redirecting...
           </div>
         )}
+
+        {/* Banner Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Profile Banner</label>
+          <div className="w-full bg-gray-100 rounded-lg overflow-hidden mb-2" style={{ aspectRatio: "16/9" }}>
+            {bannerPreview ? (
+              <img src={bannerPreview} alt="Banner preview" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                No banner selected
+              </div>
+            )}
+          </div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleBannerChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          />
+          <p className="text-xs text-gray-500 mt-1">Max 10MB, JPEG/PNG/WebP</p>
+        </div>
+
+        {/* Avatar Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
+          <div className="flex gap-4 items-center">
+            <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden flex-shrink-0">
+              {avatarPreview ? (
+                <img src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                  No photo
+                </div>
+              )}
+            </div>
+            <div className="flex-1">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">Max 5MB, JPEG/PNG/WebP</p>
+            </div>
+          </div>
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -160,7 +248,7 @@ export default function EditProfilePage() {
         </div>
 
         <p className="text-xs text-gray-500">
-          <strong>Note:</strong> Your username and email cannot be changed. To change your avatar, set it in your account settings.
+          <strong>Note:</strong> Your username and email cannot be changed.
         </p>
 
         <div className="flex gap-3">
