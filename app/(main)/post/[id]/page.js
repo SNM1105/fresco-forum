@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { createComment, deleteComment, getPostWithComments } from "@/lib/actions/comments";
 import { deletePost } from "@/lib/actions/posts";
-import { upvote, downvote, unvote } from "@/lib/actions/votes";
+import { castVote } from "@/lib/actions/votes";
 import { useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -87,16 +87,21 @@ export default function PostDetail({ params }) {
     }
 
     const currentVote = userVotes[id];
+    let value = 0;
+    
     if (direction === currentVote) {
-      await unvote("post", id);
+      // Toggle off - send 0 to remove vote
+      value = 0;
       setUserVotes(prev => ({ ...prev, [id]: null }));
     } else if (direction === 1) {
-      await upvote("post", id);
+      value = 1;
       setUserVotes(prev => ({ ...prev, [id]: 1 }));
     } else {
-      await downvote("post", id);
+      value = -1;
       setUserVotes(prev => ({ ...prev, [id]: -1 }));
     }
+    
+    await castVote({ targetType: "post", targetId: id, value, path: `/post/${id}` });
   }
 
   if (loading) {
