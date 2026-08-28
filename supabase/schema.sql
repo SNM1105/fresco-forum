@@ -31,6 +31,7 @@ create table profiles (
   username text unique not null,
   display_name text,
   avatar_url text,
+  banner_url text,
   bio text,
   school text,
   program text,
