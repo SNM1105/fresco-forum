@@ -10,6 +10,7 @@ export default function LoginContent() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
@@ -22,9 +23,38 @@ export default function LoginContent() {
     });
   };
 
+  const resendVerification = async () => {
+    if (!email) {
+      setError("Enter your email before requesting a new verification email.");
+      return;
+    }
+
+    setError(null);
+    setStatus(null);
+    setLoading(true);
+
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    setStatus("Verification email sent. Check your inbox and spam folder.");
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     setError(null);
+    setStatus(null);
     setLoading(true);
 
     if (mode === "signup") {
@@ -38,7 +68,7 @@ export default function LoginContent() {
       });
       setLoading(false);
       if (error) return setError(error.message);
-      setError("Check your email to confirm your account.");
+      setStatus("Check your email to confirm your account.");
       return;
     }
 
@@ -117,6 +147,18 @@ export default function LoginContent() {
             )}
 
             {error && <p className="text-xs text-sienna-deep">{error}</p>}
+            {status && <p className="text-xs text-lapis">{status}</p>}
+
+            {mode === "signup" && (
+              <button
+                type="button"
+                onClick={resendVerification}
+                disabled={loading || !email}
+                className="text-xs font-medium text-lapis underline underline-offset-2 disabled:opacity-50"
+              >
+                Resend verification email
+              </button>
+            )}
 
             <button
               type="submit"
