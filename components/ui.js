@@ -35,7 +35,7 @@ const STUDY_ICONS = [
   { terms: ["science", "chemistry", "physics"], icon: FlaskConical },
   { terms: ["astronomy", "astrophysics", "space"], icon: Atom },
   { terms: ["medicine", "nursing", "health", "psychology", "kinesiology"], icon: HeartPulse },
-  { terms: ["computer", "software", "programming", "data", "technology", "informatics"], icon: Code2 },
+  { terms: ["computation arts", "computer", "software", "programming", "data", "technology", "informatics"], icon: Code2 },
   { terms: ["math", "mathematics", "statistics"], icon: Calculator },
   { terms: ["business", "commerce", "marketing", "finance", "accounting", "economics"], icon: BriefcaseBusiness },
   { terms: ["law", "legal", "political science", "politics", "government"], icon: Gavel },
@@ -57,7 +57,7 @@ export function getProfileMediaUrl(path) {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${path}`;
 }
 
-export function Avatar({ name = "?", url, size = 36, verified, program }) {
+export function Avatar({ name = "?", url, size = 36, verified, program, position = "50% 50%" }) {
   const initials = name.split(" ").map((w) => w[0]).slice(0, 2).join("");
   const StudyIcon = getStudyIcon(program);
   const imageUrl = getProfileMediaUrl(url);
@@ -65,7 +65,7 @@ export function Avatar({ name = "?", url, size = 36, verified, program }) {
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
       {imageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl} alt={name} className="w-full h-full rounded-full object-cover" />
+        <img src={imageUrl} alt={name} className="w-full h-full rounded-full object-cover" style={{ objectPosition: position }} />
       ) : (
         <div
           className="w-full h-full rounded-full flex items-center justify-center font-display font-semibold text-white bg-sienna"

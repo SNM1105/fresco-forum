@@ -22,7 +22,7 @@ export default async function FeedPage({ searchParams }) {
     .select(
       `id, title, body, image_path, status, vote_score, comment_count, created_at,
        categories ( key, label, category_group ),
-       profiles ( username, display_name, avatar_url, school, program )`
+      profiles ( username, display_name, avatar_url, avatar_position, school, program )`
     )
     .eq("status", "published")
     .order(SORTS[sortKey].column, { ascending: SORTS[sortKey].ascending })

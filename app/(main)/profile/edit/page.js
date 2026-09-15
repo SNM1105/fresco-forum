@@ -6,6 +6,32 @@ import { getCurrentUserProfile, updateProfile } from "@/lib/actions/profile";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 
+function PositionControl({ label, position, onChange }) {
+  const [x = 50, y = 50] = position.split(" ").map((value) => Number.parseInt(value, 10));
+
+  function setPosition(axis, value) {
+    const nextX = axis === "x" ? value : x;
+    const nextY = axis === "y" ? value : y;
+    onChange(`${nextX}% ${nextY}%`);
+  }
+
+  return (
+    <div className="mt-3 rounded border border-gray-200 bg-gray-50 p-3">
+      <p className="text-xs font-medium text-gray-700 mb-2">{label} position</p>
+      <label className="flex items-center gap-3 text-xs text-gray-600">
+        <span className="w-10">Left</span>
+        <input type="range" min="0" max="100" value={x} onChange={(e) => setPosition("x", e.target.value)} className="flex-1 accent-orange-500" />
+        <span className="w-9 text-right">{x}%</span>
+      </label>
+      <label className="flex items-center gap-3 text-xs text-gray-600 mt-2">
+        <span className="w-10">Top</span>
+        <input type="range" min="0" max="100" value={y} onChange={(e) => setPosition("y", e.target.value)} className="flex-1 accent-orange-500" />
+        <span className="w-9 text-right">{y}%</span>
+      </label>
+    </div>
+  );
+}
+
 export default function EditProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -21,8 +47,10 @@ export default function EditProfilePage() {
   const [program, setProgram] = useState("");
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarPosition, setAvatarPosition] = useState("50% 50%");
   const [bannerFile, setBannerFile] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
+  const [bannerPosition, setBannerPosition] = useState("50% 50%");
 
   useEffect(() => {
     loadProfile();
@@ -53,6 +81,8 @@ export default function EditProfilePage() {
     setBio(result.profile.bio || "");
     setSchool(result.profile.school || "");
     setProgram(result.profile.program || "");
+    setAvatarPosition(result.profile.avatar_position || "50% 50%");
+    setBannerPosition(result.profile.banner_position || "50% 50%");
     
     // Set avatar preview if exists
     if (result.profile.avatar_url) {
@@ -100,6 +130,8 @@ export default function EditProfilePage() {
     formData.append("bio", bio);
     formData.append("school", school);
     formData.append("program", program);
+    formData.append("avatar_position", avatarPosition);
+    formData.append("banner_position", bannerPosition);
     
     if (avatarFile) {
       formData.append("avatar", avatarFile);
@@ -154,9 +186,9 @@ export default function EditProfilePage() {
         {/* Banner Upload */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Profile Banner</label>
-          <div className="w-full bg-gray-100 rounded-lg overflow-hidden mb-2" style={{ aspectRatio: "16/9" }}>
+          <div className="w-full bg-gray-100 rounded-lg overflow-hidden mb-2" style={{ aspectRatio: "16/8" }}>
             {bannerPreview ? (
-              <img src={bannerPreview} alt="Banner preview" className="w-full h-full object-cover" />
+              <img src={bannerPreview} alt="Banner preview" className="w-full h-full object-cover" style={{ objectPosition: bannerPosition }} />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">
                 No banner selected
@@ -170,6 +202,7 @@ export default function EditProfilePage() {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <p className="text-xs text-gray-500 mt-1">Max 10MB, JPEG/PNG/WebP</p>
+          <PositionControl label="Banner" position={bannerPosition} onChange={setBannerPosition} />
         </div>
 
         {/* Avatar Upload */}
@@ -178,7 +211,7 @@ export default function EditProfilePage() {
           <div className="flex gap-4 items-center">
             <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden flex-shrink-0">
               {avatarPreview ? (
-                <img src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" />
+                <img src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" style={{ objectPosition: avatarPosition }} />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
                   No photo
@@ -195,6 +228,7 @@ export default function EditProfilePage() {
               <p className="text-xs text-gray-500 mt-1">Max 5MB, JPEG/PNG/WebP</p>
             </div>
           </div>
+          <PositionControl label="Profile photo" position={avatarPosition} onChange={setAvatarPosition} />
         </div>
 
         <div>

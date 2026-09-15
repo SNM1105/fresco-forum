@@ -11,6 +11,7 @@ Student forum for art and politics — Next.js 14 (App Router) + Tailwind + Supa
    - `supabase/policies.sql`
    - `supabase/storage.sql`
    - `supabase/profile-media-policies.sql` (when updating an existing project)
+   - `supabase/profile-media-position.sql` (when updating an existing project)
 3. **Enable Google auth**: Supabase dashboard → Authentication → Providers → Google. Add your OAuth client ID/secret, and set the redirect URL to `https://<your-app-domain>/auth/callback` (and `http://localhost:3000/auth/callback` for local dev).
 4. **Copy env vars**: `cp .env.local.example .env.local` and fill in your project URL, anon key, and service role key.
 5. `npm install`
