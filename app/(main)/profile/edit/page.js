@@ -168,7 +168,7 @@ export default function EditProfilePage() {
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Edit Profile</h1>
-        <a href={`/profile/${profile?.username}`} className="text-blue-500 hover:underline text-sm">
+        <a href={`/profile/${profile?.username}`} className="text-lapis hover:underline text-sm">
           View profile
         </a>
       </div>
@@ -302,7 +302,7 @@ export default function EditProfilePage() {
           <button
             type="submit"
             disabled={submitting}
-            className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 disabled:opacity-50 font-semibold"
+            className="px-6 py-2 bg-sienna text-white rounded-lg hover:bg-sienna-deep disabled:opacity-50 font-semibold"
           >
             {submitting ? "Saving..." : "Save Changes"}
           </button>

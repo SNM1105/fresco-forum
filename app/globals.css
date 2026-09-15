@@ -5,13 +5,13 @@
 @tailwind utilities;
 
 :root {
-  --plaster: #eae6db;
+  --plaster: #f3f1e8;
 }
 
 body {
   background: var(--plaster);
   font-family: "Inter", sans-serif;
-  color: #22251f;
+  color: #171717;
 }
 
 .ff-scroll::-webkit-scrollbar {

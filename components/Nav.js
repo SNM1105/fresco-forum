@@ -23,7 +23,7 @@ export default async function Nav() {
     <header className="sticky top-0 z-30 bg-plaster border-b border-line">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
         <Link href="/feed" className="font-display font-semibold text-xl text-ink">
-          Fresco <span className="text-sienna">Forum</span>
+          Screw <span className="text-sienna">Your Slop</span>
         </Link>
 
         <form action="/explore" className="hidden md:flex items-center flex-1 max-w-md mx-2">

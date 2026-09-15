@@ -7,13 +7,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        plaster: { DEFAULT: "#EAE6DB", deep: "#DFDAC9" },
-        card: "#F8F6EF",
-        line: "#D8D2BF",
-        ink: { DEFAULT: "#22251F", soft: "#63665B", faint: "#93968A" },
-        sienna: { DEFAULT: "#B8502C", deep: "#8F3D22", tint: "#F1DCCB" },
-        lapis: { DEFAULT: "#2C4A6E", tint: "#D8E0E8" },
-        verdigris: { DEFAULT: "#4F7A63", tint: "#DCE7DE" },
+        plaster: { DEFAULT: "#F3F1E8", deep: "#E5E2D6" },
+        card: "#FFFEF8",
+        line: "#D4D1C4",
+        ink: { DEFAULT: "#171717", soft: "#55534D", faint: "#89867C" },
+        sienna: { DEFAULT: "#F04F35", deep: "#B92E1D", tint: "#FFE0D8" },
+        lapis: { DEFAULT: "#3459E6", tint: "#E0E7FF" },
+        verdigris: { DEFAULT: "#B8E52D", tint: "#EFFFC9" },
       },
       fontFamily: {
         display: ["Fraunces", "serif"],

@@ -10,7 +10,7 @@ export default function OnboardingTutorial() {
   useEffect(() => {
     setMounted(true);
     // Check localStorage to see if tutorial was dismissed
-    const wasDismissed = localStorage.getItem("fresco-tutorial-dismissed");
+    const wasDismissed = localStorage.getItem("slop-tutorial-dismissed");
     if (wasDismissed) {
       setDismissed(true);
     }
@@ -18,7 +18,7 @@ export default function OnboardingTutorial() {
 
   const handleDismiss = () => {
     setDismissed(true);
-    localStorage.setItem("fresco-tutorial-dismissed", "true");
+    localStorage.setItem("slop-tutorial-dismissed", "true");
   };
 
   if (!mounted) return null;
@@ -105,7 +105,7 @@ export default function OnboardingTutorial() {
     <div className="bg-gradient-to-r from-orange-50 to-blue-50 border-l-4 border-orange-500 p-6 rounded-lg shadow-md mb-6">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <h2 className="text-lg font-bold text-ink mb-3">Welcome to Fresco Forum! 👋</h2>
+          <h2 className="text-lg font-bold text-ink mb-3">Welcome to Screw Your Slop.</h2>
           
           <div className="space-y-3 text-sm text-ink-soft">
             <div className="flex gap-3">

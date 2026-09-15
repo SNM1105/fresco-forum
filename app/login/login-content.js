@@ -84,7 +84,7 @@ export default function LoginContent() {
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-8">
           <span className="font-display font-semibold text-2xl text-ink">
-            Fresco <span className="text-sienna">Forum</span>
+            Screw <span className="text-sienna">Your Slop</span>
           </span>
         </div>
 

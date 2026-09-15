@@ -41,7 +41,7 @@ export default async function ProfilePage({ params }) {
           style={{
             backgroundImage: profile.banner_url
               ? `url(${getProfileMediaUrl(profile.banner_url)})`
-              : "linear-gradient(120deg, #B8502C, #2C4A6E)",
+              : "linear-gradient(120deg, #F04F35, #3459E6)",
             backgroundPosition: profile.banner_position || "50% 50%",
           }}
         />
@@ -53,7 +53,7 @@ export default async function ProfilePage({ params }) {
             {isOwnProfile && (
               <Link
                 href="/profile/edit"
-                className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 text-sm font-semibold"
+                className="mt-4 px-4 py-2 bg-sienna text-white rounded hover:bg-sienna-deep text-sm font-semibold"
               >
                 Edit Profile
               </Link>

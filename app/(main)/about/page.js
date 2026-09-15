@@ -10,7 +10,7 @@ export default function AboutPage() {
     <div className="flex-1 min-w-0 max-w-2xl">
       <h1 className="font-display font-semibold text-2xl mb-1 text-ink">About &amp; rules</h1>
       <p className="text-sm mb-6 text-ink-soft">
-        Fresco Forum is built and moderated for students, by students. Here's how it stays that way.
+        Screw Your Slop is built and moderated for students, by students. Here's how it stays sharp.
       </p>
       <div className="flex flex-col gap-3 mb-8">
         {RULES.map(([t, d], i) => (

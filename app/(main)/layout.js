@@ -10,7 +10,7 @@ export default function MainLayout({ children }) {
         {children}
       </main>
       <footer className="max-w-7xl mx-auto px-4 py-6 text-xs text-ink-faint flex items-center justify-between">
-        <span>Fresco Forum — student-run, ad-free.</span>
+        <span>Screw Your Slop — student-run, ad-free.</span>
         <a href="/about" className="hover:underline">About &amp; rules</a>
       </footer>
     </div>
