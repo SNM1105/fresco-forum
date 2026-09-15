@@ -27,7 +27,7 @@ export default async function ProfilePage({ params }) {
     .select(
       `id, title, body, image_path, status, vote_score, comment_count, created_at,
        categories ( key, label, category_group ),
-       profiles ( username, display_name, avatar_url, school )`
+      profiles ( username, display_name, avatar_url, school, program )`
     )
     .eq("author_id", profile.id)
     .eq("status", "published")
@@ -40,7 +40,7 @@ export default async function ProfilePage({ params }) {
         <div className="px-5 pb-5">
           <div className="flex items-start justify-between">
             <div className="-mt-8 mb-3">
-              <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} size={72} />
+              <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} program={profile.program} size={72} />
             </div>
             {isOwnProfile && (
               <Link

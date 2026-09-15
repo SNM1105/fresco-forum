@@ -29,8 +29,8 @@ on conflict (id) do update set
   allowed_mime_types = excluded.allowed_mime_types;
 
 -- Path convention: post-media/{auth.uid()}/{postId}-{filename}
--- profile-media/avatars/{auth.uid()}/{file}
--- profile-media/banners/{auth.uid()}/{file}
+-- profile-media/{auth.uid()}/avatars/{file}
+-- profile-media/{auth.uid()}/banners/{file}
 -- so a user can only write inside their own folder, moderators
 -- can remove anything.
 
@@ -63,17 +63,11 @@ create policy "users manage their own profile media"
   on storage.objects for all
   using (
     bucket_id = 'profile-media'
-    and (
-      (storage.foldername(name))[1] = auth.uid()::text
-      or (storage.foldername(name))[2] = auth.uid()::text
-    )
+    and (storage.foldername(name))[1] = auth.uid()::text
   )
   with check (
     bucket_id = 'profile-media'
-    and (
-      (storage.foldername(name))[1] = auth.uid()::text
-      or (storage.foldername(name))[2] = auth.uid()::text
-    )
+    and (storage.foldername(name))[1] = auth.uid()::text
   );
 
 create policy "anyone can view avatars"
@@ -85,7 +79,3 @@ create policy "users manage their own avatar"
   using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text)
   with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
 
--- Dimension limits (e.g. 4000px max) aren't enforceable by Postgres/Storage
--- policy — check them client-side before upload (see lib/validate-image.js)
--- and again in the create-post server action by reading the file's
--- dimensions server-side before writing the posts row.

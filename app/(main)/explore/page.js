@@ -10,9 +10,9 @@ export default async function ExplorePage({ searchParams }) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const baseSelect = `id, title, body, image_path, status, vote_score, comment_count, created_at,
-     categories ( key, label, category_group ),
-     profiles ( username, display_name, avatar_url, school )`;
+    const baseSelect = `id, title, body, image_path, status, vote_score, comment_count, created_at,
+      categories ( key, label, category_group ),
+      profiles ( username, display_name, avatar_url, school, program )`;
 
   let results = null;
   if (q) {

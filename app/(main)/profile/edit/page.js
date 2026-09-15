@@ -236,13 +236,13 @@ export default function EditProfilePage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Program</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Program / field of study</label>
             <input
               type="text"
               value={program}
               onChange={(e) => setProgram(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-              placeholder="Your program"
+              placeholder="e.g. Film Studies"
             />
           </div>
         </div>

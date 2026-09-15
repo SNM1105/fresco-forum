@@ -13,7 +13,7 @@ export default async function Nav() {
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("username, display_name, avatar_url")
+      .select("username, display_name, avatar_url, program")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -42,7 +42,7 @@ export default async function Nav() {
           {profile ? (
             <>
               <Link href={`/profile/${profile.username}`}>
-                <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} size={30} />
+                <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} program={profile.program} size={30} />
               </Link>
               <SignOutButton />
             </>

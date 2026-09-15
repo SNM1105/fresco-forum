@@ -81,7 +81,7 @@ export default function PostCard({ post, currentUserVote = 0, currentUserId = nu
 
           <div className="flex items-center justify-between flex-wrap gap-2">
             <Link href={`/profile/${post.profiles.username}`} className="flex items-center gap-2 group">
-              <Avatar name={post.profiles.display_name || post.profiles.username} url={post.profiles.avatar_url} size={22} />
+              <Avatar name={post.profiles.display_name || post.profiles.username} url={post.profiles.avatar_url} program={post.profiles.program} size={22} />
               <span className="text-xs text-ink-soft">
                 <span className="font-medium group-hover:underline text-ink">
                   {post.profiles.display_name || post.profiles.username}
