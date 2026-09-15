@@ -12,7 +12,7 @@ Student forum for art and politics — Next.js 14 (App Router) + Tailwind + Supa
    - `supabase/storage.sql`
    - `supabase/profile-media-policies.sql` (when updating an existing project)
    - `supabase/profile-media-position.sql` (when updating an existing project)
-3. **Enable Google auth**: Supabase dashboard → Authentication → Providers → Google. Add your OAuth client ID/secret, and set the redirect URL to `https://<your-app-domain>/auth/callback` (and `http://localhost:3000/auth/callback` for local dev).
+3. **Configure email auth**: Supabase dashboard → Authentication → Providers → Email. Keep email confirmation enabled for school-email verification.
 4. **Copy env vars**: `cp .env.local.example .env.local` and fill in your project URL, anon key, and service role key.
 5. `npm install`
 6. `npm run dev`
@@ -37,7 +37,7 @@ update profiles set account_type = 'moderator' where username = 'your_username';
 
 **Real, end-to-end:**
 
-- Signup/login (email+password and Google), with automatic school verification by email domain (`school_domains` table)
+- Signup/login with email and password, with automatic school verification by email domain (`school_domains` table)
 - Feed with sort (new/popular/most discussed) and category filtering, reading real Supabase rows
 - Voting (upvote/downvote/un-vote), server-side, with score kept in sync by a DB trigger
 - Create post, with political categories automatically routed to `pending_review` by a DB trigger — **not** trusted from the client

@@ -16,8 +16,9 @@ module.exports = {
         verdigris: { DEFAULT: "#B8E52D", tint: "#EFFFC9" },
       },
       fontFamily: {
-        display: ["Fraunces", "serif"],
-        body: ["Inter", "sans-serif"],
+        logo: ["Bebas Neue", "sans-serif"],
+        display: ["Urbanist", "sans-serif"],
+        body: ["Urbanist", "sans-serif"],
         mono: ["IBM Plex Mono", "monospace"],
       },
     },

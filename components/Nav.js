@@ -22,7 +22,7 @@ export default async function Nav() {
   return (
     <header className="sticky top-0 z-30 bg-plaster border-b border-line">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-        <Link href="/feed" className="font-display font-semibold text-xl text-ink">
+        <Link href="/feed" className="font-logo text-2xl tracking-wide text-ink">
           Screw <span className="text-sienna">Your Slop</span>
         </Link>
 

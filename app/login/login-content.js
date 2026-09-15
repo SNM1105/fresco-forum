@@ -16,13 +16,6 @@ export default function LoginContent() {
   const params = useSearchParams();
   const supabase = createClient();
 
-  const withGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=${params.get("next") || "/feed"}` },
-    });
-  };
-
   const resendVerification = async () => {
     if (!email) {
       setError("Enter your email before requesting a new verification email.");
@@ -83,7 +76,7 @@ export default function LoginContent() {
     <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-plaster">
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-8">
-          <span className="font-display font-semibold text-2xl text-ink">
+          <span className="font-logo text-3xl tracking-wide text-ink">
             Screw <span className="text-sienna">Your Slop</span>
           </span>
         </div>
@@ -102,20 +95,6 @@ export default function LoginContent() {
                 {m === "signup" ? "Sign up" : "Log in"}
               </button>
             ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={withGoogle}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-md text-sm font-medium mb-4 border border-line text-ink"
-          >
-            Continue with Google
-          </button>
-
-          <div className="flex items-center gap-2 mb-4">
-            <div className="flex-1 h-px bg-line" />
-            <span className="text-xs text-ink-faint">or use your school email</span>
-            <div className="flex-1 h-px bg-line" />
           </div>
 
           <form onSubmit={submit} className="flex flex-col gap-3">
@@ -170,9 +149,7 @@ export default function LoginContent() {
           </form>
 
           <p className="text-[11px] leading-relaxed mt-4 text-ink-faint">
-            A recognized school email verifies you automatically — check{" "}
-            <code className="text-lapis">supabase/schema.sql</code> for the current domain list.
-            Anyone can sign up; verification just tells other students where you're from.
+            Please sign up or log in with your school email, then complete the verification step.
           </p>
         </div>
       </div>

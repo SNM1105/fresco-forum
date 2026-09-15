@@ -147,11 +147,11 @@ CREATE TABLE mod_actions (
 
 ### Auth Pages
 
-| Route            | Status         | Notes                         |
-| ---------------- | -------------- | ----------------------------- |
-| `/login`         | ✅ Implemented | Email/password + Google OAuth |
-| `/auth/callback` | ✅ Implemented | OAuth redirect handler        |
-| `/signup`        | ✅ Implemented | Registration                  |
+| Route            | Status         | Notes                                         |
+| ---------------- | -------------- | --------------------------------------------- |
+| `/login`         | ✅ Implemented | Email/password with school-email verification |
+| `/auth/callback` | ✅ Implemented | OAuth redirect handler                        |
+| `/signup`        | ✅ Implemented | Registration                                  |
 
 ---
 
@@ -246,7 +246,7 @@ CREATE TABLE mod_actions (
 ✅ **Authentication**
 
 - Email/password signup & login
-- Google OAuth via Supabase Auth
+- Email/password auth via Supabase Auth
 - Automatic school verification by email domain
 - Session management with Supabase SSR
 
@@ -468,7 +468,7 @@ CREATE TABLE mod_actions (
 
 - **Frontend**: Next.js 14 (App Router), React 18, TailwindCSS
 - **Backend**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth (email/password + Google OAuth)
+- **Auth**: Supabase Auth (email/password with school-email verification)
 - **Storage**: Supabase Storage (for post media)
 - **UI Library**: lucide-react (icons)
 
