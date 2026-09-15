@@ -57,15 +57,17 @@ export function getProfileMediaUrl(path) {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${path}`;
 }
 
-export function Avatar({ name = "?", url, size = 36, verified, program, position = "50% 50%" }) {
+export function Avatar({ name = "?", url, size = 36, verified, program, position = "50% 50%", scale = 100 }) {
   const initials = name.split(" ").map((w) => w[0]).slice(0, 2).join("");
   const StudyIcon = getStudyIcon(program);
   const imageUrl = getProfileMediaUrl(url);
   return (
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
       {imageUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl} alt={name} className="w-full h-full rounded-full object-cover" style={{ objectPosition: position }} />
+        <span className="absolute inset-0 overflow-hidden rounded-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={imageUrl} alt={name} className="w-full h-full rounded-full object-cover" style={{ objectPosition: position, transform: `scale(${Math.max(100, scale) / 100})` }} />
+        </span>
       ) : (
         <div
           className="w-full h-full rounded-full flex items-center justify-center font-display font-semibold text-white bg-sienna"

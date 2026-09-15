@@ -48,6 +48,7 @@ export default function EditProfilePage() {
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [avatarPosition, setAvatarPosition] = useState("50% 50%");
+  const [avatarScale, setAvatarScale] = useState(100);
   const [bannerFile, setBannerFile] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
   const [bannerPosition, setBannerPosition] = useState("50% 50%");
@@ -82,6 +83,7 @@ export default function EditProfilePage() {
     setSchool(result.profile.school || "");
     setProgram(result.profile.program || "");
     setAvatarPosition(result.profile.avatar_position || "50% 50%");
+    setAvatarScale(result.profile.avatar_scale || 100);
     setBannerPosition(result.profile.banner_position || "50% 50%");
     
     // Set avatar preview if exists
@@ -131,6 +133,7 @@ export default function EditProfilePage() {
     formData.append("school", school);
     formData.append("program", program);
     formData.append("avatar_position", avatarPosition);
+    formData.append("avatar_scale", avatarScale);
     formData.append("banner_position", bannerPosition);
     
     if (avatarFile) {
@@ -211,7 +214,7 @@ export default function EditProfilePage() {
           <div className="flex gap-4 items-center">
             <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden flex-shrink-0">
               {avatarPreview ? (
-                <img src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" style={{ objectPosition: avatarPosition }} />
+                <img src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" style={{ objectPosition: avatarPosition, transform: `scale(${avatarScale / 100})` }} />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
                   No photo
@@ -229,6 +232,13 @@ export default function EditProfilePage() {
             </div>
           </div>
           <PositionControl label="Profile photo" position={avatarPosition} onChange={setAvatarPosition} />
+          <div className="mt-3 rounded border border-gray-200 bg-gray-50 p-3">
+            <label className="flex items-center gap-3 text-xs text-gray-600">
+              <span className="w-10">Zoom</span>
+              <input type="range" min="100" max="200" value={avatarScale} onChange={(e) => setAvatarScale(Number(e.target.value))} className="flex-1 accent-orange-500" />
+              <span className="w-9 text-right">{avatarScale}%</span>
+            </label>
+          </div>
         </div>
 
         <div>

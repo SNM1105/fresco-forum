@@ -10,7 +10,7 @@ export default async function ProfilePage({ params }) {
   // Get the profile being viewed
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, avatar_position, banner_url, banner_position, bio, school, program, reputation, school_verified")
+    .select("id, username, display_name, avatar_url, avatar_position, avatar_scale, banner_url, banner_position, bio, school, program, reputation, school_verified")
     .eq("username", params.username)
     .single();
 
@@ -48,7 +48,7 @@ export default async function ProfilePage({ params }) {
         <div className="px-5 pb-5">
           <div className="flex items-start justify-between">
             <div className="-mt-8 mb-3">
-              <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} program={profile.program} position={profile.avatar_position} size={72} />
+              <Avatar name={profile.display_name || profile.username} url={profile.avatar_url} program={profile.program} position={profile.avatar_position} scale={profile.avatar_scale} size={72} />
             </div>
             {isOwnProfile && (
               <Link

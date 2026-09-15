@@ -32,6 +32,7 @@ create table profiles (
   display_name text,
   avatar_url text,
   avatar_position text not null default '50% 50%',
+  avatar_scale integer not null default 100,
   banner_url text,
   banner_position text not null default '50% 50%',
   bio text,
