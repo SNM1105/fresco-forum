@@ -52,14 +52,20 @@ function getStudyIcon(program) {
   return STUDY_ICONS.find(({ terms }) => terms.some((term) => value.includes(term)))?.icon || GraduationCap;
 }
 
+export function getProfileMediaUrl(path) {
+  if (!path || path.startsWith("http") || path.startsWith("data:")) return path;
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${path}`;
+}
+
 export function Avatar({ name = "?", url, size = 36, verified, program }) {
   const initials = name.split(" ").map((w) => w[0]).slice(0, 2).join("");
   const StudyIcon = getStudyIcon(program);
+  const imageUrl = getProfileMediaUrl(url);
   return (
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
-      {url ? (
+      {imageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt={name} className="w-full h-full rounded-full object-cover" />
+        <img src={imageUrl} alt={name} className="w-full h-full rounded-full object-cover" />
       ) : (
         <div
           className="w-full h-full rounded-full flex items-center justify-center font-display font-semibold text-white bg-sienna"

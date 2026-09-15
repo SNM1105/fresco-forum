@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import PostCard from "@/components/PostCard";
-import { Avatar } from "@/components/ui";
+import { Avatar, getProfileMediaUrl } from "@/components/ui";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ export default async function ProfilePage({ params }) {
   // Get the profile being viewed
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, school, program, reputation, school_verified")
+    .select("id, username, display_name, avatar_url, banner_url, bio, school, program, reputation, school_verified")
     .eq("username", params.username)
     .single();
 
@@ -36,7 +36,14 @@ export default async function ProfilePage({ params }) {
   return (
     <div className="flex-1 min-w-0 max-w-3xl">
       <div className="rounded-md overflow-hidden mb-5 border border-line bg-card">
-        <div className="h-16" style={{ background: "linear-gradient(120deg, #B8502C, #2C4A6E)" }} />
+        <div
+          className="h-16 bg-cover bg-center"
+          style={{
+            backgroundImage: profile.banner_url
+              ? `url(${getProfileMediaUrl(profile.banner_url)})`
+              : "linear-gradient(120deg, #B8502C, #2C4A6E)",
+          }}
+        />
         <div className="px-5 pb-5">
           <div className="flex items-start justify-between">
             <div className="-mt-8 mb-3">

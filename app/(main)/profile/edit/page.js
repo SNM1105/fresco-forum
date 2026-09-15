@@ -58,6 +58,9 @@ export default function EditProfilePage() {
     if (result.profile.avatar_url) {
       setAvatarPreview(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${result.profile.avatar_url}`);
     }
+    if (result.profile.banner_url) {
+      setBannerPreview(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-media/${result.profile.banner_url}`);
+    }
     
     setLoading(false);
   }
